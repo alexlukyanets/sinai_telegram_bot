@@ -1,0 +1,4 @@
+menu_level_id,level_name,keyboard_type,developed,created_at,updated_at,parent_id,level_text_id
+1,Головне Меню,reply,f,2023-11-23 15:19:32.574017+02,2023-12-01 14:31:46.199697+02,,golovne-menyu
+2,Про Церкву,inline,f,2023-12-01 15:23:28.923013+02,2023-12-01 15:23:28.923013+02,1,pro-cerkvu
+3,Служіння,reply,f,2023-12-01 16:47:55.106161+02,2023-12-04 17:53:53.794758+02,1,sluzhinnya
