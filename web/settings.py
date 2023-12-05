@@ -13,15 +13,17 @@ import os
 from pathlib import Path
 
 from dotenv import load_dotenv
+from starlette.config import Config
 
+env = Config(".env")
 load_dotenv()
 
-DB_NAME = os.getenv('DB_NAME')
-DB_USER = os.getenv('DB_USER')
-DB_PASSWORD = os.getenv('DB_PASSWORD')
-DB_HOST = os.getenv('DB_HOST')
-DB_PORT = os.getenv('DB_PORT')
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS')
+DB_NAME = os.getenv('DB_NAME') or env.get('DB_NAME')
+DB_USER = os.getenv('DB_USER') or env.get('DB_USER')
+DB_PASSWORD = os.getenv('DB_PASSWORD') or env.get('DB_PASSWORD')
+DB_HOST = os.getenv('DB_HOST') or env.get('DB_HOST')
+DB_PORT = os.getenv('DB_PORT') or env.get('DB_PORT')
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS') or env.get('ALLOWED_HOSTS')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -34,8 +36,6 @@ SECRET_KEY = 'django-insecure-4-0h0#2__&sp80&6e$$pm6@v-y**4bg(-xttlcu7ed6y-#f8#r
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-
 
 # Application definition
 
