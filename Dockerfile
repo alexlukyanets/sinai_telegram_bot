@@ -2,19 +2,19 @@ FROM python:3.11-slim
 
 LABEL Author="YuzkoBot"
 
-# The enviroment variable ensures that the python output is set straight
-# to the terminal with out buffering it first
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
-#directory to store app source code
-RUN mkdir /sinai_bot
+# Environment variables to ensure immediate output and no .pyc files
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
 
-#switch to /app directory so that everything runs from here
+# Set working directory
 WORKDIR /sinai_bot
 
-#copy the app code to image working directory
-COPY . /sinai_bot
+# Install dependencies
+COPY requirements_docker.txt .
+RUN pip install --upgrade pip && \
+    pip install -r requirements_docker.txt && \
+    rm -rf /var/lib/apt/lists/* && \
+    apt-get clean
 
-#let pip install required packages
-RUN pip install --upgrade pip
-RUN pip install -r requirements_docker.txt
+# Copy the application code
+COPY . .
