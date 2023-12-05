@@ -23,7 +23,7 @@ DB_USER = os.getenv('DB_USER') or env.get('DB_USER')
 DB_PASSWORD = os.getenv('DB_PASSWORD') or env.get('DB_PASSWORD')
 DB_HOST = os.getenv('DB_HOST') or env.get('DB_HOST')
 DB_PORT = os.getenv('DB_PORT') or env.get('DB_PORT')
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS') or env.get('ALLOWED_HOSTS')
+ALLOWED_HOSTS = ['*']
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
