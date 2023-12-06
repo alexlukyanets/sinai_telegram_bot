@@ -1,6 +1,6 @@
 from typing import Final
 
-from telegram_bot.models import MenuItem, TelegramUser, DataBotText, SinaiUser, MenuLevel
+from telegram_bot.models import MenuItem, TelegramUser, DataBotText, MenuLevel
 
 
 # The `UseCase` classes are used to separate the business logic from the rest of the code.
