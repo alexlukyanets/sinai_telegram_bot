@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin
 
-from .models import TelegramUser, TextLanguages, MenuItem, DataBotText, MenuLevel, SinaiUser
+from .models import TelegramUser, TextLanguages, MenuItem, DataBotText, MenuLevel
 
 
 @admin.register(TelegramUser)
@@ -10,16 +10,6 @@ class TelegramUserAdmin(ModelAdmin):
     search_fields = ('username', 'first_name', 'last_name')
     readonly_fields = ('tg_user_id', 'username', 'first_name', 'last_name', 'language_code', 'is_blocked_bot',
                        'created_at')
-
-    class Meta:
-        fields = '__all__'
-
-
-@admin.register(SinaiUser)
-class SinaiUserAdmin(ModelAdmin):
-    list_filter = ('created_at',)
-    search_fields = ('name', 'phone_number')
-    readonly_fields = ('telegram_user',)
 
     class Meta:
         fields = '__all__'
