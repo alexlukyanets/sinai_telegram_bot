@@ -17,11 +17,11 @@ async def menu_handler(message: Message) -> None:
     menu_items, keyboard_type, message_reply = await CORE_USE_CASE.get_menu(menu_extractor)
     if not menu_reply_mode and keyboard_type == 'reply':
 
-        await message.bot.send_message(message.from_user.id, message_reply, parse_mode=ParseMode.MARKDOWN,
+        await message.bot.send_message(message.from_user.id, message_reply, parse_mode=ParseMode.HTML,
                                        reply_markup=build_flex_keyboard(menu_items, keyboard_type))
 
         await message.answer()
 
     await message.answer(message_reply,
-                         parse_mode=ParseMode.MARKDOWN,
+                         parse_mode=ParseMode.MARKDOWN_V2,
                          reply_markup=build_flex_keyboard(menu_items, keyboard_type))
