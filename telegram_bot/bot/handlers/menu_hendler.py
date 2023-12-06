@@ -27,6 +27,7 @@ async def menu_handler(message: Message) -> None:
             image = FSInputFile(photo_path)
             if not menu_reply_mode:
                 await message.bot.send_photo(message.from_user.id, image)
+                await message.answer()
                 continue
             await message.answer_photo(image)
 
