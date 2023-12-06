@@ -23,5 +23,5 @@ async def menu_handler(message: Message) -> None:
         await message.answer()
 
     await message.answer(message_reply,
-                         parse_mode=ParseMode.MARKDOWN_V2,
+                         parse_mode=ParseMode.MARKDOWN,
                          reply_markup=build_flex_keyboard(menu_items, keyboard_type))
