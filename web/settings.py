@@ -18,9 +18,9 @@ from starlette.config import Config
 env = Config(".env")
 load_dotenv()
 
-DB_NAME = os.getenv('DB_NAME') or env.get('DB_NAME')
-DB_USER = os.getenv('DB_USER') or env.get('DB_USER')
-DB_PASSWORD = os.getenv('DB_PASSWORD') or env.get('DB_PASSWORD')
+DB_NAME = os.getenv('POSTGRES_DB') or env.get('POSTGRES_DB')
+DB_USER = os.getenv('POSTGRES_USER') or env.get('POSTGRES_USER')
+DB_PASSWORD = os.getenv('POSTGRES_PASSWORD') or env.get('POSTGRES_PASSWORD')
 DB_HOST = os.getenv('DB_HOST') or env.get('DB_HOST')
 DB_PORT = os.getenv('DB_PORT') or env.get('DB_PORT')
 ALLOWED_HOSTS = ['*']
