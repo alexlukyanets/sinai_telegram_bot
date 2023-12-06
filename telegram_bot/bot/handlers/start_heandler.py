@@ -13,6 +13,6 @@ async def handle_start_command(message: Message) -> None:
         language_code=message.from_user.language_code
     )
 
-    menu_items, keyboard_type, _ = await CORE_USE_CASE.get_menu()
+    menu_items, keyboard_type, _, _ = await CORE_USE_CASE.get_menu()
     await message.answer(f'Обирай категорію',
                          reply_markup=build_flex_keyboard(menu_items, keyboard_type))

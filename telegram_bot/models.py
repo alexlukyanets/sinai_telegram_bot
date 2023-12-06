@@ -91,6 +91,13 @@ class MenuItem(models.Model):
         ordering = ['created_at']
 
 
+class ImageItem(models.Model):
+    menu_item = models.ForeignKey(MenuItem, related_name='images', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='menu_images/')
+
+    def __str__(self):
+        return f"{self.menu_item.name_of_execution_function} - Image"
+
 class DataBotText(models.Model):
     data_bot_text_id = models.AutoField(primary_key=True)
     text = models.TextField()

@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin
+from django.utils.html import format_html
 
-from .models import TelegramUser, TextLanguages, MenuItem, DataBotText, MenuLevel
+from .models import TelegramUser, TextLanguages, MenuItem, DataBotText, MenuLevel, ImageItem
 
 
 @admin.register(TelegramUser)
@@ -53,3 +54,17 @@ class TextBotAdmin(ModelAdmin):
     list_filter = ('created_at',)
     list_display = (
         'text', 'id_value', 'language', 'created_at', 'updated_at')
+
+
+@admin.register(ImageItem)
+class ImageItemAdmin(ModelAdmin):
+    list_display = ('menu_item', 'image_preview')
+    search_fields = ('menu_item',)
+    readonly_fields = ('image_preview',)
+
+    def image_preview(self, obj):
+        if obj.image:
+            return format_html('<img src="{}" style="max-height: 100px;"/>', obj.image.url)
+        return "-"
+
+    image_preview.short_description = "Image Preview"

@@ -1,6 +1,8 @@
+import os
+
 from aiogram.enums import ParseMode
 
-from aiogram.types import Message
+from aiogram.types import Message, FSInputFile
 
 from telegram_bot.bot.keyboards.flex_keyboards import build_flex_keyboard
 
@@ -14,13 +16,15 @@ async def menu_handler(message: Message) -> None:
     except AttributeError:
         menu_reply_mode = False
         menu_extractor = message.data
-    menu_items, keyboard_type, message_reply = await CORE_USE_CASE.get_menu(menu_extractor)
+    menu_items, keyboard_type, message_reply, images = await CORE_USE_CASE.get_menu(menu_extractor)
     if not menu_reply_mode and keyboard_type == 'reply':
-
         await message.bot.send_message(message.from_user.id, message_reply, parse_mode=ParseMode.MARKDOWN,
                                        reply_markup=build_flex_keyboard(menu_items, keyboard_type))
 
         await message.answer()
+    if images:
+        for photo_path in images:
+            await message.answer_photo(FSInputFile(photo_path))
 
     await message.answer(message_reply,
                          parse_mode=ParseMode.MARKDOWN,
