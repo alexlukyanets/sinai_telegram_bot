@@ -1,8 +1,5 @@
 from typing import Final
 
-from aiogram.fsm.context import FSMContext
-
-from telegram_bot.bot.fsms.menu import MenuStates
 from telegram_bot.models import MenuItem, TelegramUser, DataBotText, SinaiUser, MenuLevel
 
 
@@ -44,14 +41,20 @@ class CoreUseCase:
             telegram_user=telegram_user)
 
     @staticmethod
-    async def get_menu(menu_item_text=None, state: FSMContext = None):
+    async def get_menu_item(menu_item_text):
+        try:
+            return await MenuItem.objects.aget(text=menu_item_text)
+        except:
+            return await MenuItem.objects.aget(name_of_execution_function=menu_item_text)
+
+    @classmethod
+    async def get_menu(cls, menu_item_text=None):
         message_reply = 'Обирай Категорію'
         if not menu_item_text:
-
             menu_items = MenuItem.objects.filter(level__parent__isnull=True). \
                 order_by('position_in_row', 'position_in_col')
         else:
-            menu_item = await MenuItem.objects.aget(text=menu_item_text)
+            menu_item = await cls.get_menu_item(menu_item_text)
             menu_items = MenuItem.objects.filter(level__menu_level_id=menu_item.menu_reply_id).order_by(
                 'position_in_row', 'position_in_col')
             if menu_item.text_reply:
@@ -68,13 +71,6 @@ class CoreUseCase:
                                         'position_in_col': menu_item.position_in_col,
                                         'name_of_execution_function': menu_item.name_of_execution_function})
         return keyboard_menu_items, keyboard_type, message_reply
-
-    @staticmethod
-    async def select_admin_ids():
-        user_ids = []
-        async for user_id in TelegramUser.objects.filter(is_admin=True).values_list('user_id'):
-            user_ids.append(user_id[0])
-        return user_ids
 
     @staticmethod
     async def select_text_by_text_id(text_id) -> str:

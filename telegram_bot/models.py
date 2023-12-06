@@ -29,23 +29,6 @@ class TelegramUser(models.Model):
         return f"{self.tg_user_id}"
 
 
-class SinaiUser(models.Model):
-    name = models.CharField(max_length=256, **default_dict)
-    phone_number = models.CharField(max_length=50, **default_dict)
-    telegram_user = models.OneToOneField(TelegramUser, on_delete=models.CASCADE, primary_key=True)
-    created_at = models.DateTimeField(auto_now_add=True, db_index=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        db_table = "sinai_user"
-        verbose_name = 'Sinai User'
-        verbose_name_plural = 'Sinai Users'
-        ordering = ['created_at']
-
-    def __str__(self):
-        return f"{self.name} {self.phone_number}"
-
-
 class TextLanguages(models.Model):
     name = models.CharField(max_length=256)
     language_code = models.CharField(max_length=8, help_text="language code", primary_key=True)
