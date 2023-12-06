@@ -24,7 +24,11 @@ async def menu_handler(message: Message) -> None:
         await message.answer()
     if images:
         for photo_path in images:
-            await message.answer_photo(FSInputFile(photo_path))
+            image = FSInputFile(photo_path)
+            if not menu_reply_mode:
+                await message.bot.send_photo(message.from_user.id, image)
+                continue
+            await message.answer_photo(image)
 
     await message.answer(message_reply,
                          parse_mode=ParseMode.MARKDOWN,
