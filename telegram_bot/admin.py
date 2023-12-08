@@ -64,7 +64,7 @@ class ImageItemAdmin(ModelAdmin):
 
     def image_preview(self, obj):
         if obj.image:
-            return format_html('<img src="{}" style="max-height: 100px;"/>', obj.image.url)
+            return format_html(f'<img src="{obj.image.url}" style="max-height: 100px;"/>')
         return "-"
 
     image_preview.short_description = "Image Preview"
