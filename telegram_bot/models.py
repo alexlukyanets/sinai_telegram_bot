@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 default_dict = dict(null=True, blank=True)
 
@@ -22,6 +23,11 @@ class TelegramUser(models.Model):
         verbose_name = 'Telegram User'
         verbose_name_plural = 'Telegram Users'
         ordering = ['created_at']
+
+    def save(self, *args, **kwargs):
+        # Update the 'updated_at' field whenever the user is saved
+        self.updated_at = timezone.now()
+        super().save(*args, **kwargs)
 
     def __str__(self):
         if self.username:
@@ -97,6 +103,7 @@ class ImageItem(models.Model):
 
     def __str__(self):
         return f"{self.menu_item.name_of_execution_function} - Image"
+
 
 class DataBotText(models.Model):
     data_bot_text_id = models.AutoField(primary_key=True)

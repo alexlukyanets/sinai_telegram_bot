@@ -17,6 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from telegram_bot.views import user_activity_view
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('user-activity/', user_activity_view, name='user_activity'),
+    path('user-activity-graph/', user_activity_view, name='user_activity_graph'),
 ]
