@@ -1,5 +1,8 @@
 from typing import Final
 
+from aiogram import types
+from django.utils.timezone import now
+
 from telegram_bot.models import MenuItem, TelegramUser, DataBotText, MenuLevel, ImageItem
 
 
@@ -89,6 +92,17 @@ class CoreUseCase:
         if not text:
             raise RuntimeError('Unable to find by text_id')
         return text.text
+
+    @staticmethod
+    async def on_user_interaction(message: types.Message):
+        # Update the 'update_at' field for the user
+        user_id = message.from_user.id
+        try:
+            user_profile = await TelegramUser.objects.aget(tg_user_id=user_id)
+            user_profile.update_at = now()
+            await user_profile.asave()
+        except TelegramUser.DoesNotExist:
+            return
 
 
 CORE_USE_CASE: Final[CoreUseCase] = CoreUseCase()

@@ -10,6 +10,7 @@ from telegram_bot.bot.use_case import CORE_USE_CASE
 
 
 async def menu_handler(message: Message) -> None:
+    await CORE_USE_CASE.on_user_interaction(message)
     menu_reply_mode = True
     try:
         menu_extractor = message.text
