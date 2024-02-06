@@ -10,7 +10,6 @@ from telegram_bot.bot.use_case import CORE_USE_CASE
 
 
 async def menu_handler(message: Message) -> None:
-    await CORE_USE_CASE.on_user_interaction(message)
     menu_reply_mode = True
     try:
         menu_extractor = message.text
@@ -35,3 +34,6 @@ async def menu_handler(message: Message) -> None:
     await message.answer(message_reply,
                          parse_mode=ParseMode.MARKDOWN,
                          reply_markup=build_flex_keyboard(menu_items, keyboard_type))
+    await CORE_USE_CASE.on_user_interaction(message)
+
+
