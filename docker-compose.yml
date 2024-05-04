@@ -12,7 +12,7 @@ services:
 
   web:
     build: .
-    command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py createsuperuser --no-input --username admin --email admin@example.com && python manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/sinai_bot
     ports:
@@ -20,7 +20,7 @@ services:
     env_file:
       - ./.env.dev
     depends_on:
-      - db
+      - di
 
   telegram:
     build: .
