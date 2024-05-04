@@ -17,10 +17,14 @@ services:
       - .:/sinai_bot
     ports:
       - "8000:8000"
+    environment:
+      - DJANGO_SUPERUSER_USERNAME=admin
+      - DJANGO_SUPERUSER_EMAIL=admin@example.com
+      - DJANGO_SUPERUSER_PASSWORD=sianibotalex123S
     env_file:
       - ./.env.dev
     depends_on:
-      - di
+      - db
 
   telegram:
     build: .
